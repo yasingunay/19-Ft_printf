@@ -1,62 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_unsigned.c                                :+:      :+:    :+:   */
+/*   ft_print_ptr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygunay <ygunay@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/17 18:50:12 by ygunay            #+#    #+#             */
-/*   Updated: 2022/08/18 15:37:18 by ygunay           ###   ########.fr       */
+/*   Created: 2022/08/18 14:43:28 by ygunay            #+#    #+#             */
+/*   Updated: 2022/08/18 15:37:56 by ygunay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_len_unsigned(unsigned int nb)
+static int	ft_len_ptr(unsigned long nb)
 {
 	int	len;
 
 	len = 0;
 	while (nb != 0)
 	{
-		nb /= 10;
+		nb /= 16;
 		len++;
 	}
 	return (len);
 }
 
-static char	*ft_utoa(unsigned int nb)
+static void	ft_putptr(unsigned long nb)
 {
-	int		len;
-	char	*result;
-
-	len = ft_len_unsigned(nb);
-	result = malloc(sizeof(char) * len + 1);
-	if (!result)
-		return (NULL);
-	result[len] = '\0';
-	while (nb != 0)
+	if (nb >= 16)
 	{
-		result[len - 1] = nb % 10 + '0';
-		nb /= 10;
-		len--;
+		ft_putptr(nb / 16);
+		ft_putptr(nb % 16);
 	}
-	return (result);
+	else
+	{
+		if (nb <= 9)
+			ft_putchar(nb + '0');
+		else
+			ft_putchar(nb - 10 + 'a');
+	}
 }
 
-int	ft_print_unsigned(unsigned int nb)
+int	ft_print_ptr(unsigned long nb)
 {
-	int		len;
-	char	*n;
+	int	len;
 
-	len = 0;
+	len = 2;
+	write(1, "0x", 2);
 	if (nb == 0)
 		len += write(1, "0", 1);
 	else
-	{
-		n = ft_utoa(nb);
-		len += ft_print_str(n);
-		free(n);
-	}
+		ft_putptr(nb);
+		len += ft_len_ptr(nb);
 	return (len);
 }

@@ -6,7 +6,7 @@
 /*   By: ygunay <ygunay@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:05:28 by ygunay            #+#    #+#             */
-/*   Updated: 2022/08/17 18:34:43 by ygunay           ###   ########.fr       */
+/*   Updated: 2022/08/18 15:34:27 by ygunay           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_putchar(char c)
 	return (1);
 }
 
-int	ft_printstr(const char *s1)
+int	ft_print_str(const char *s1)
 {
 	int	i;
 
@@ -84,13 +84,13 @@ char	*ft_itoa(int n)
 	return (result);
 }
 
-int	ft_printnbr(int nbr)
+int	ft_print_nbr(int nbr)
 {
 	int		len;
 	char	*nb;
 
 	nb = ft_itoa(nbr);
-	len = ft_printstr(nb);
+	len = ft_print_str(nb);
 	free(nb);
 	return (len);
 }
